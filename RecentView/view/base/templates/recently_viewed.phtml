@@ -1,0 +1,48 @@
+<?php
+
+/** @var \Dss\RecentView\Block\RecentlyViewed $block */
+$products = $block->getProducts();
+?>
+
+<div class="products wrapper grid products-grid">
+    <ol class="products list items product-items">
+        <?php foreach ($products as $product) : ?>
+            <li class="item product product-item">
+                <div class="product-item-info" data-container="product-grid">
+                    <a href="<?php echo $product->getProductUrl(); ?>" class="product photo product-item-photo" tabindex="-1">
+                        <img src="<?php echo $block->getProductImageUrl($product); ?>" alt="<?php echo $product->getName(); ?>">
+                    </a>
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link" href="<?php echo $product->getProductUrl(); ?>">
+                                <?php echo $product->getName(); ?>
+                            </a>
+                        </strong>
+                        <strong class="product name product-item-name">
+                            Product ID: <?php echo $product->getId(); ?>
+                        </strong>
+                        <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?php echo $product->getId(); ?>">
+                            <span class="price"><?php echo $block->getProductPrice($product); ?></span>
+                        </div>
+                        <div class="product-item-inner">
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <form data-role="tocart-form" action="<?php echo $block->getAddToCartUrl($product); ?>" method="post">
+                                        <input type="hidden" name="product" value="<?php echo $product->getId(); ?>">
+                                        <button type="submit" title="Add to Cart" class="action tocart primary">
+                                            <span>Add to Cart</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product description product-item-description">
+                                <?php echo $product->getShortDescription(); ?>
+                                <a href="<?php echo $product->getProductUrl(); ?>" title="<?php echo $product->getName(); ?>" class="action more">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+</div>
